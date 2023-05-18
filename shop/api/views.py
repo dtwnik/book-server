@@ -32,7 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return response
 
-
+# old version customobtain
 # class CustomObtainAuthToken(ObtainAuthToken):
 #     def post(self, request, *args, **kwargs):
 #         response = super(CustomObtainAuthToken, self).post(request, *args, **kwargs)

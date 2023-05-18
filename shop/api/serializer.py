@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-
+# old version
 # class OrderSerializer(serializers.HyperlinkedModelSerializer):
 #     class Meta:
 #         model = Order
