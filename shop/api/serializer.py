@@ -25,6 +25,9 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
         Token.objects.create(user=user)
+
+        # Deposite.objects.create(owner=user, deposite=0)
+
         return user
 
 
@@ -67,5 +70,11 @@ class OrderSerializer(serializers.HyperlinkedModelSerializer):
 
         return order
 
+
+
+class DepositeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Deposite
+        fields = '__all__'
 
 

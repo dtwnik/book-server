@@ -22,7 +22,14 @@ class UserViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
         token, created = Token.objects.get_or_create(user_id=response.data["id"])
+
+        user = User.objects.get(id=response.data["id"])
+        Deposite.objects.create(owner=user, deposite=0)
+
         response.data["token"] = str(token)
+
+        # Deposite.objects.create(owner=response.data["id"], deposit=0)
+
         return response
 
 
@@ -61,3 +68,18 @@ class OrderViewSet(viewsets.ModelViewSet):
         return Order.objects.filter(buyers=user)
 
 
+class DepositeViewSet(viewsets.ModelViewSet):
+    queryset = Deposite.objects.all()
+    serializer_class = DepositeSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Deposite.objects.filter(owner=user)
+
+    def patch(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)

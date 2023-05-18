@@ -10,6 +10,7 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Book)
+admin.site.register(Deposite)
 
 admin.site.site_url = "http://localhost:3000/"
 

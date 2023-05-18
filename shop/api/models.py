@@ -37,4 +37,6 @@ class Order(models.Model):
         return f"Order {self.id} - Buyer: {self.buyers.username}"
 
 
-
+class Deposite(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    deposite = models.IntegerField(default=0)
